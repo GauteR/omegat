@@ -4,3 +4,5 @@ build
 dist2
 manifest.mf
 /nbproject/private/
+*~
+.*.swp
