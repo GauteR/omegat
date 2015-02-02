@@ -149,30 +149,37 @@ public class Main {
             }
         }
 
+        /* define run mode */
         runMode = RUN_MODE.parse(params.get("mode"));
 
+
+        /* load resources if specified */
         String resourceBundle = params.get("resource-bundle");
         if (resourceBundle != null) {
             OStrings.loadBundle(resourceBundle);
         }
 
+        /* configuration directory */
         String configDir = params.get("config-dir");
         if (configDir != null) {
             RuntimePreferences.setConfigDir(configDir);
         }
 
+        /* quiet mode */
         if (params.containsKey("quiet")) {
             RuntimePreferences.setQuietMode(true);
         }
 
+        /* Some runtime options */
         if (params.containsKey("disable-project-locking")) {
             RuntimePreferences.setProjectLockingEnabled(false);
         }
-        
+
         if (params.containsKey("disable-location-save")) {
             RuntimePreferences.setLocationSaveEnabled(false);
         }
 
+        /* log information */
         Log.log("\n" + "===================================================================" + "\n"
                 + OStrings.getDisplayVersion() + " (" + new Date() + ") " + " Locale " + Locale.getDefault());
 
@@ -184,6 +191,7 @@ public class Main {
         ConvertConfigs.convert();
         PluginUtils.loadPlugins(params);
 
+        /* run app depending on run mode */
         int result;
         try {
             switch (runMode) {
